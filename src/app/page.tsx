@@ -5,9 +5,31 @@ import { UploadArea } from "@/components/analyzer/UploadArea";
 import { AnalysisProgress } from "@/components/analyzer/AnalysisProgress";
 import { ResultsDisplay } from "@/components/analyzer/ResultsDisplay";
 
+interface AnalysisResult {
+  agent: string;
+  analysis: string;
+  score: number;
+  strengths: string[];
+  weaknesses: string[];
+}
+
+interface AnalysisResults {
+  documentId: string;
+  agentResults: AnalysisResult[];
+  biasCheck: {
+    passed: boolean;
+    notes: string;
+  };
+  finalAnalysis: {
+    overallScore: number;
+    summary: string;
+    recommendations: string[];
+  };
+}
+
 export default function AnalyzerPage() {
   const [analysisState, setAnalysisState] = useState<'idle' | 'uploading' | 'analyzing' | 'complete'>('idle');
-  const [analysisResults, setAnalysisResults] = useState<any>(null);
+  const [analysisResults, setAnalysisResults] = useState<AnalysisResults | null>(null);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
   const handleFileUpload = async (file: File) => {

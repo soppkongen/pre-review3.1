@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
         const searchResults = await searchResponse.json()
         if (searchResults.success && searchResults.results.length > 0) {
           relevantKnowledge = searchResults.results
-            .map((result: any) => `${result.title}: ${result.content}`)
+            .map((result: { title: string; content: string }) => `${result.title}: ${result.content}`)
             .join('\n\n')
           knowledgeUsed = true
         }

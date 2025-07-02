@@ -57,7 +57,7 @@ export function AnalysisProgress({ state, fileName, onReset }: AnalysisProgressP
               <h3 className="text-sm font-medium text-gray-900 mb-3">
                 Analysis Progress:
               </h3>
-              {agents.map((agent, index) => (
+              {agents.map((agent) => (
                 <div key={agent} className="flex items-center space-x-3">
                   <div className="flex-shrink-0">
                     <div className="animate-pulse">

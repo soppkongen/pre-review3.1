@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -26,18 +27,18 @@ export default function RootLayout({
                     Physics Analyzer
                   </h1>
                   <nav className="flex space-x-8">
-                    <a
+                    <Link
                       href="/"
                       className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors"
                     >
                       Analyzer
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       href="/theory-lab"
                       className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors"
                     >
                       Theory Lab
-                    </a>
+                    </Link>
                   </nav>
                 </div>
               </div>

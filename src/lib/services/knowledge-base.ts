@@ -66,7 +66,7 @@ export class KnowledgeBaseService {
     try {
       const result = await this.client.data.creator().withClassName("PhysicsKnowledge").withProperties(knowledge).do()
 
-      return result.id
+      return result.id || ""
     } catch (error) {
       console.error("Error adding knowledge:", error)
       throw new Error("Failed to add knowledge")
@@ -101,12 +101,12 @@ export class KnowledgeBaseService {
       const fieldDistribution: Record<string, number> = {}
       const difficultyDistribution: Record<string, number> = {}
 
-      concepts.forEach((concept: any) => {
-        if (concept.field) {
-          fieldDistribution[concept.field] = (fieldDistribution[concept.field] || 0) + 1
+      concepts.forEach((concept: { domain?: string; difficultyLevel?: string }) => {
+        if (concept.domain) {
+          fieldDistribution[concept.domain] = (fieldDistribution[concept.domain] || 0) + 1
         }
-        if (concept.difficulty) {
-          difficultyDistribution[concept.difficulty] = (difficultyDistribution[concept.difficulty] || 0) + 1
+        if (concept.difficultyLevel) {
+          difficultyDistribution[concept.difficultyLevel] = (difficultyDistribution[concept.difficultyLevel] || 0) + 1
         }
       })
 

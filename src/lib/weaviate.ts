@@ -30,6 +30,7 @@ export interface PhysicsKnowledge {
   applications?: string[]
   relatedConcepts?: string[]
   examples?: string[]
+  [key: string]: unknown
 }
 
 export interface ResearchPaper {

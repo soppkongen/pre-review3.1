@@ -100,7 +100,7 @@ export class KnowledgeBaseService {
       const domainDistribution: Record<string, number> = {}
       const difficultyDistribution: Record<string, number> = {}
 
-      concepts.forEach((concept: any) => {
+      concepts.forEach((concept: { domain?: string; difficultyLevel?: string }) => {
         if (concept.domain) {
           domainDistribution[concept.domain] = (domainDistribution[concept.domain] || 0) + 1
         }

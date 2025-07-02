@@ -25,34 +25,4 @@ export async function GET(request: NextRequest) {
   }
 }
 
-export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json()
-    const { concept, description, field, difficulty, equations, applications, relatedConcepts, examples } = body
 
-    if (!concept || !description || !field) {
-      return NextResponse.json({ error: "Concept, description, and field are required" }, { status: 400 })
-    }
-
-    const knowledgeBase = new KnowledgeBaseService()
-    const id = await knowledgeBase.addKnowledge({
-      concept,
-      description,
-      field,
-      difficulty: difficulty || "intermediate",
-      equations: equations || [],
-      applications: applications || [],
-      relatedConcepts: relatedConcepts || [],
-      examples: examples || [],
-    })
-
-    return NextResponse.json({
-      success: true,
-      id,
-      message: "Knowledge added successfully",
-    })
-  } catch (error) {
-    console.error("Add knowledge error:", error)
-    return NextResponse.json({ error: "Failed to add knowledge" }, { status: 500 })
-  }
-}
