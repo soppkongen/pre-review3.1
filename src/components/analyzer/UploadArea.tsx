@@ -24,74 +24,61 @@ export function UploadArea({ onFileUpload }: UploadAreaProps) {
     setIsDragOver(false);
     
     const files = Array.from(e.dataTransfer.files);
-    const pdfFile = files.find(file => file.type === 'application/pdf');
+    const file = files[0];
     
-    if (pdfFile) {
-      onFileUpload(pdfFile);
+    if (file && (file.type === 'application/pdf' || file.name.endsWith('.pdf'))) {
+      onFileUpload(file);
     }
   }, [onFileUpload]);
 
   const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file && file.type === 'application/pdf') {
+    if (file) {
       onFileUpload(file);
     }
   }, [onFileUpload]);
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto">
       <div
-        className={`
-          relative border-2 border-dashed rounded-lg p-12 text-center transition-colors
-          ${isDragOver 
-            ? 'border-blue-400 bg-blue-50' 
-            : 'border-gray-300 hover:border-gray-400'
-          }
-        `}
+        className={`upload-area ${isDragOver ? 'drag-over' : ''}`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
-        <div className="space-y-4">
-          <div className="mx-auto w-16 h-16 text-gray-400">
-            <svg
-              className="w-full h-full"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-              />
-            </svg>
-          </div>
+        <div className="flex flex-col items-center">
+          <svg
+            className="w-16 h-16 text-muted-foreground mb-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+            />
+          </svg>
           
-          <div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
-              Upload Physics Paper
-            </h3>
-            <p className="text-gray-600 mb-4">
-              Drag and drop your PDF file here, or click to select
-            </p>
-            <p className="text-sm text-gray-500">
-              Supports PDF files up to 10MB
-            </p>
-          </div>
-
-          <div>
-            <label className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 cursor-pointer transition-colors">
-              <input
-                type="file"
-                accept=".pdf"
-                onChange={handleFileSelect}
-                className="sr-only"
-              />
-              Select PDF File
-            </label>
-          </div>
+          <h3 className="text-xl font-semibold mb-2">Upload Physics Paper</h3>
+          <p className="text-muted-foreground mb-6 text-center">
+            Drag and drop your PDF file here, or click to select
+          </p>
+          
+          <label className="btn-primary cursor-pointer">
+            <input
+              type="file"
+              accept=".pdf"
+              onChange={handleFileSelect}
+              className="hidden"
+            />
+            Select PDF File
+          </label>
+          
+          <p className="text-sm text-muted-foreground mt-4">
+            Supports PDF files up to 10MB
+          </p>
         </div>
       </div>
     </div>
